@@ -1,0 +1,134 @@
+{
+  "payer": {
+    "payer_id": "aetna",
+    "name": "Aetna",
+    "type": "commercial",
+    "website": "https://www.aetna.com"
+  },
+  "policy": {
+    "policy_id": "aetna_adalimumab_pa_policy_2024",
+    "title": "Adalimumab (Humira) Prior Authorization Policy",
+    "payer_id": "aetna",
+    "effective_date": "2024-01-01",
+    "last_reviewed_date": "2023-11-15",
+    "version": "4.2",
+    "source_url": "https://www.aetna.com/cpb/medical/data/300_399/0372.html"
+  },
+  "plans": [
+    {
+      "plan_id": "aetna_commercial_ppo",
+      "name": "Aetna Commercial PPO",
+      "payer_id": "aetna",
+      "plan_type": "ppo"
+    },
+    {
+      "plan_id": "aetna_commercial_hmo",
+      "name": "Aetna Commercial HMO",
+      "payer_id": "aetna",
+      "plan_type": "hmo"
+    }
+  ],
+  "drugs": [
+    {
+      "drug_id": "adalimumab",
+      "name": "adalimumab",
+      "generic_name": "adalimumab",
+      "brand_names": ["Humira", "Hadlima", "Hyrimoz", "Cyltezo", "Yusimry"],
+      "rxnorm_cui": "327361",
+      "hcpcs_code": "J0135",
+      "drug_class": "TNF inhibitor",
+      "ndc_codes": []
+    },
+    {
+      "drug_id": "methotrexate",
+      "name": "methotrexate",
+      "generic_name": "methotrexate",
+      "brand_names": ["Rheumatrex", "Trexall"],
+      "rxnorm_cui": "105585",
+      "hcpcs_code": null,
+      "drug_class": "DMARD",
+      "ndc_codes": []
+    }
+  ],
+  "indications": [
+    {
+      "indication_id": "rheumatoid_arthritis",
+      "name": "Rheumatoid Arthritis",
+      "description": "Moderate to severe active rheumatoid arthritis in adults",
+      "icd10_codes": ["M05.70", "M05.79", "M06.00", "M06.09"]
+    },
+    {
+      "indication_id": "plaque_psoriasis",
+      "name": "Plaque Psoriasis",
+      "description": "Moderate to severe chronic plaque psoriasis",
+      "icd10_codes": ["L40.0"]
+    },
+    {
+      "indication_id": "crohns_disease",
+      "name": "Crohn's Disease",
+      "description": "Moderately to severely active Crohn's disease",
+      "icd10_codes": ["K50.00", "K50.10", "K50.80", "K50.90"]
+    }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "crit_pa_required",
+      "type": "prior_auth",
+      "description": "Prior authorization is required for all adalimumab products including biosimilars.",
+      "required_value": null,
+      "applies_to_drug": "adalimumab",
+      "applies_to_indication": null,
+      "sequence": null
+    },
+    {
+      "criterion_id": "crit_step_1_ra",
+      "type": "step_therapy",
+      "description": "Patient must have an inadequate response or intolerance to at least one conventional DMARD (e.g., methotrexate, leflunomide, hydroxychloroquine) at adequate doses.",
+      "required_value": "≥3 months at adequate dose",
+      "applies_to_drug": "adalimumab",
+      "applies_to_indication": "rheumatoid_arthritis",
+      "sequence": 1
+    },
+    {
+      "criterion_id": "crit_lab_ra",
+      "type": "lab_requirement",
+      "description": "Documentation of positive RF or anti-CCP antibody, or radiographic evidence of joint damage.",
+      "required_value": "RF > ULN or anti-CCP positive",
+      "applies_to_drug": "adalimumab",
+      "applies_to_indication": "rheumatoid_arthritis",
+      "sequence": null
+    },
+    {
+      "criterion_id": "crit_age_psoriasis",
+      "type": "age_requirement",
+      "description": "Patient must be 18 years of age or older for plaque psoriasis indication.",
+      "required_value": "≥18 years",
+      "applies_to_drug": "adalimumab",
+      "applies_to_indication": "plaque_psoriasis",
+      "sequence": null
+    },
+    {
+      "criterion_id": "crit_ql_adalimumab",
+      "type": "quantity_limit",
+      "description": "Quantity limit applies: two prefilled syringes or pens per 28 days.",
+      "required_value": "2 syringes/pens per 28 days",
+      "applies_to_drug": "adalimumab",
+      "applies_to_indication": null,
+      "sequence": null
+    }
+  ],
+  "coverage_facts": [
+    {
+      "policy_id": "aetna_adalimumab_pa_policy_2024",
+      "drug_id": "adalimumab",
+      "coverage_status": "covered_with_restrictions",
+      "tier": "Specialty Tier",
+      "notes": "Covered when prior authorization criteria are met"
+    }
+  ],
+  "extraction_confidence": 0.94,
+  "extraction_warnings": [
+    "Page 3 table borders were faint — criteria counts may be incomplete.",
+    "Psoriatic arthritis indication criteria extracted but not included in this fixture."
+  ]
+}

@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "medical-policy-tracker"
+version = "0.1.0"
+description = "Medical Benefit Drug Policy Tracker using VLMs, GraphRAG, and MCP"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Core AI / LLM
+    "anthropic>=0.40.0",
+    "mcp>=1.0.0",
+
+    # Database drivers
+    "neo4j>=5.18.0",
+    "chromadb>=0.5.0",
+
+    # Web framework
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "python-multipart>=0.0.9",
+
+    # UI
+    "streamlit>=1.40.0",
+
+    # PDF / image processing
+    "pymupdf>=1.24.0",
+    "Pillow>=10.4.0",
+
+    # Data validation & config
+    "pydantic>=2.8.0",
+    "pydantic-settings>=2.4.0",
+    "python-dotenv>=1.0.1",
+
+    # HTTP client
+    "httpx>=0.27.0",
+
+    # Logging
+    "structlog>=24.4.0",
+
+    # Utilities
+    "tenacity>=9.0.0",
+    "python-dateutil>=2.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-httpx>=0.32.0",
+    "ruff>=0.6.0",
+    "mypy>=1.11.0",
+]
+
+[project.scripts]
+init-neo4j       = "scripts.init_neo4j:main"
+ingest-policy    = "scripts.ingest_policy:main"
+run-mcp-server   = "scripts.run_mcp_server:main"
+download-samples = "scripts.download_sample_pdfs:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "api*", "scripts*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "ANN"]
+ignore = ["ANN101", "ANN102"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
