@@ -1,4 +1,4 @@
-# PolicyLens — Medical Benefit Drug Policy Tracker
+# PolicyLens - Medical Benefit Drug Policy Tracker
 
 > Query and compare drug coverage policies across health insurance payers using
 > Vision-Language Models, a knowledge graph, and Model Context Protocol (MCP).
@@ -16,7 +16,7 @@
 7. [MCP Servers](#mcp-servers)
 8. [Example Queries](#example-queries)
 9. [Project Structure](#project-structure)
-10. [Roadmap](#roadmap)
+
 
 ---
 
@@ -25,18 +25,18 @@
 Health insurance payers publish hundreds of Medical Benefit Drug Policy PDFs
 every year. These documents define which drugs are covered, under what
 conditions (prior authorisation, step therapy, quantity limits), and for which
-diagnoses. Manually comparing policies across payers — or tracking changes over
-time — is error-prone and time-consuming.
+diagnoses. Manually comparing policies across payers or tracking changes over
+time, is error-prone and time-consuming.
 
 **PolicyLens** automates this workflow:
 
-1. **Ingest** — Upload a policy PDF. A Vision-Language Model (Claude) reads
+1. **Ingest** - Upload a policy PDF. A Vision-Language Model (Claude) reads
    every page (including scanned tables) and extracts structured data.
-2. **Graph** — Extracted entities (drugs, indications, criteria, plans) are
+2. **Graph** - Extracted entities (drugs, indications, criteria, plans) are
    stored in a Neo4j knowledge graph with rich relationships.
-3. **Retrieve** — Raw policy excerpts are indexed in ChromaDB for semantic
+3. **Retrieve** - Raw policy excerpts are indexed in ChromaDB for semantic
    search with page-level citations.
-4. **Query** — A Claude agent connects to four MCP servers and answers natural
+4. **Query** - A Claude agent connects to four MCP servers and answers natural
    language questions with citations and a transparent reasoning trace.
 
 ---
@@ -87,7 +87,7 @@ flowchart TD
 |-------------|---------|
 | Python | 3.11+ |
 | Docker + Docker Compose | 24+ |
-| Anthropic API key | — |
+| Anthropic API key | - |
 
 ---
 
@@ -107,7 +107,7 @@ pip install -e ".[dev]"
 
 # 4. Copy and fill in the env file
 cp .env.example .env
-# Edit .env — set ANTHROPIC_API_KEY and NEO4J_PASSWORD at minimum
+# Edit .env - set ANTHROPIC_API_KEY and NEO4J_PASSWORD at minimum
 
 # 5. Start the databases
 docker compose up -d
@@ -136,10 +136,10 @@ All settings are read from environment variables (see `.env.example`).
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | — | **Required.** Anthropic API key |
+| `ANTHROPIC_API_KEY` | - | **Required.** Anthropic API key |
 | `NEO4J_URI` | `bolt://localhost:7687` | Neo4j Bolt URI |
 | `NEO4J_USER` | `neo4j` | Neo4j username |
-| `NEO4J_PASSWORD` | — | **Required.** Neo4j password |
+| `NEO4J_PASSWORD` | - | **Required.** Neo4j password |
 | `CHROMA_PERSIST_DIR` | `./data/chroma` | ChromaDB persistence path |
 | `VLM_MODEL` | `claude-sonnet-4-6` | Claude model for extraction |
 | `LOG_LEVEL` | `INFO` | Logging level |
@@ -236,26 +236,6 @@ medical-policy-tracker/
 ├── scripts/                 # CLI helpers and one-shot setup scripts
 └── tests/                   # pytest test suite
 ```
-
----
-
-## Roadmap
-
-- [ ] Stage 1 — Project scaffold *(current)*
-- [ ] Stage 2 — Pydantic data models
-- [ ] Stage 3 — Neo4j schema, client, init script
-- [ ] Stage 4 — VLM extraction module
-- [ ] Stage 5 — Graph builder
-- [ ] Stage 6 — ChromaDB excerpt store
-- [ ] Stage 7 — Reference data (RxNorm / ICD-10)
-- [ ] Stage 8 — Four MCP servers
-- [ ] Stage 9 — FastAPI backend
-- [ ] Stage 10 — Streamlit UI
-- [ ] Stage 11 — End-to-end smoke test
-- [ ] Automated nightly policy refresh
-- [ ] Confidence scoring on VLM extractions
-- [ ] Policy change email / Slack alerts
-- [ ] Multi-tenant auth for the API
 
 ---
 
